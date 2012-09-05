@@ -1,0 +1,6 @@
+.DS_Store
+node_modules
+dump.rdb
+npm-debug.log
+log/
+config/runtime.json

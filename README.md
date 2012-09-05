@@ -1,4 +1,3 @@
 muska
 =====
-
-node processes reborn again and again! 何度でも甦るさ！
+it will be reborn over and over again! 何度でも甦るさ！
