@@ -13,6 +13,9 @@ describe('Qilin', function() {
 
   it('starts up and shuts down correctly', function(done) {
     var qilin = new Qilin(clusterArguments, { workers: 3 });
+    qilin.on('error', function(error) {
+      throw error;
+    });
     qilin.start(function(error) {
       if (error) {
         throw error;

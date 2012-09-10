@@ -14,9 +14,12 @@ describe('Qilin', function() {
           , silent: false
         }
       , {
-            workers: 2
+            workers: 3
         }
     );
+    qilin.on('error', function(error) {
+      throw error;
+    });
     qilin.start(function(error) {
       if (error) {
         throw error;
