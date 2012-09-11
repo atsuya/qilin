@@ -1,6 +1,6 @@
 {
     "name": "qilin"
-  , "version": "0.0.1"
+  , "version": "0.0.2"
   , "description": "unicorn-like for node"
   , "keywords": ["process", "monitor", "unicorn"]
   , "author": {
