@@ -4,7 +4,7 @@ Qilin
 [![Build
 Status](https://secure.travis-ci.org/atsuya/qilin.png)](http://travis-ci.org/atsuya/qilin)
 
-** NOTE: THIS PROJECT IS HEAVILY IN DEVELOPMENT, EXPERIMENTAL AND UNSTABLE **
+**NOTE: THIS PROJECT IS HEAVILY IN DEVELOPMENT, EXPERIMENTAL AND UNSTABLE**
 
 Unicorn-like monitoring for node.js.
 
