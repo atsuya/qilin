@@ -1,3 +1,8 @@
+/**
+ * qilin
+ * Copyright(c) 2012 Atsuya Takagi <atsuya.takagi@gmail.com>
+ * MIT Licensed
+ */
 var fs = require('fs')
   , os = require('os')
   , async = require('async')

@@ -1,3 +1,8 @@
+/**
+ * qilin
+ * Copyright(c) 2012 Atsuya Takagi <atsuya.takagi@gmail.com>
+ * MIT Licensed
+ */
 var cp = require('child_process')
   , async = require('async');
 

@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+var program = require('commander')
+  , fs = require('fs')
+  , Qilin = require('../lib/qilin');
+
+program
+  .version(JSON.parse(fs.readFileSync(__dirname + '/../package.json', 'utf8')).version)
+  .usage('[options] <file>')
+  .option('-w, --workers <n>', 'Set number of workers', parseInt)
+  .parse(process.argv);
+
+// TODO: how can i make sure workers is integer?
+var workers = program.workers;
+var file = program.args.length > 0 ? program.args[0] : null;
+if (!fs.existsSync(file)) {
+  console.log('File does not exist: %s', file);
+  process.exit(1);
+}
+
+var qilin = new Qilin(
+    {
+        exec: file
+      , args: []
+      , silent: false
+    }
+  , {
+        workers: workers
+    }
+);
+qilin.start();
