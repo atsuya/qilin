@@ -29,7 +29,7 @@ describe('Qilin', function() {
   });
 
   afterEach(function(done) {
-    qilin.shutdown(function(error) {
+    qilin.shutdown(true, function(error) {
       if (error) {
         throw error;
       }

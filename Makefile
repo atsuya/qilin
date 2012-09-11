@@ -5,13 +5,13 @@ LEAKS = 'AggressiveTokenizer, tokenizer, RegexpTokenizer, WordTokenizer, WordPun
 all: test-all
 
 test-all:
-	@NODE_ENV=test ./node_modules/mocha/bin/mocha \
+	@NODE_ENV=test QILIN_LOG_LEVEL=error ./node_modules/mocha/bin/mocha \
 		--reporter $(REPORTER) \
 		--globals $(LEAKS) \
 		$(TESTS)
 
 one:
-	@NODE_ENV=test ./node_modules/mocha/bin/mocha \
+	@NODE_ENV=test QILIN_LOG_LEVEL=error ./node_modules/mocha/bin/mocha \
 		--reporter $(REPORTER) \
 		--globals $(LEAKS) \
 		${FILE}

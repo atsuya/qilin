@@ -8,8 +8,7 @@ var helper = require('./support/helper')
 
 describe('Qilin', function() {
   var codeBefore = [
-          "var http = require('http')"
-        , ", util = require('util');"
+          "var http = require('http');"
         , "var httpServer = http.createServer(function(request, response) {"
         , "response.writeHead(200);"
         , "response.end('hello');"
@@ -17,25 +16,23 @@ describe('Qilin', function() {
         , "httpServer.listen(3001, 'localhost');"
       ]
     , codeAfter = [
-          "var http = require('http')"
-        , ", util = require('util');"
+          "var http = require('http');"
         , "var httpServer = http.createServer(function(request, response) {"
         , "response.writeHead(200);"
         , "response.end('world');"
         , "});"
         , "httpServer.listen(3001, 'localhost');"
       ]
-    , filename = os.tmpDir() + '/qilin-reload.js'
+    , filename = os.tmpDir() + 'qilin-reload.js'
     , options = {
           host: 'localhost'
         , port: 3001
         , path: '/'
         , method: 'GET'
-      }
-    , qilin = new Qilin(
-          { exec: filename, args: [], silent: false }
-        , { workers: 3 }
-      );
+        , headers: {
+            'Connection': 'close'
+          }
+      };
 
   beforeEach(function(done) {
     writeFile(filename, codeBefore.join(''), function(error) {
@@ -70,7 +67,6 @@ describe('Qilin', function() {
         data += chunk;
       });
       response.on('end', function() {
-        console.log('response: ' + data);
         callback(null, data);
       });
     });
@@ -78,6 +74,10 @@ describe('Qilin', function() {
   }
 
   it('reloads the worker file with #reload', function(done) {
+    var qilin = new Qilin(
+        { exec: filename, args: [], silent: false }
+      , { workers: 3 }
+    );
     async.series([
             function(callback) {
               qilin.start(callback);
@@ -92,7 +92,7 @@ describe('Qilin', function() {
               writeFile(filename, codeAfter.join(''), callback);
             }
           , function(callback) {
-              qilin.reload(callback);
+              qilin.reload(true, callback);
             }
           , function(callback) {
               makeRequest(options, function(error, response) {
@@ -101,7 +101,7 @@ describe('Qilin', function() {
               });
             }
           , function(callback) {
-              qilin.shutdown(callback);
+              qilin.shutdown(true, callback);
             }
         ]
       , function(error, results) {
@@ -114,8 +114,11 @@ describe('Qilin', function() {
   });
 
   it('reloads the worker file with SIGUSR2', function(done) {
+    var qilin = new Qilin(
+        { exec: filename, args: [], silent: false }
+      , { workers: 3 }
+    );
     qilin.on('reload', function() {
-      console.log('CALLED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
       async.series([
               function(callback) {
                 makeRequest(options, function(error, response) {
@@ -124,7 +127,7 @@ describe('Qilin', function() {
                 });
               }
             , function(callback) {
-                qilin.shutdown(callback);
+                qilin.shutdown(true, callback);
               }
           ]
         , function(error, results) {

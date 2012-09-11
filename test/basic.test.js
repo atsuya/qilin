@@ -21,7 +21,7 @@ describe('Qilin', function() {
         throw error;
       }
 
-      qilin.shutdown(function(error) {
+      qilin.shutdown(true, function(error) {
         if (error) {
           throw error;
         }
@@ -52,7 +52,7 @@ describe('Qilin', function() {
               });
             }
           , function(callback) {
-              qilin.shutdown(callback);
+              qilin.shutdown(true, callback);
             }
         ]
       , function(error, results) {
