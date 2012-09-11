@@ -40,9 +40,13 @@ cluster.on('exit', function(worker, code, signal) {
 process.on('SIGUSR2', function() {
   log('got SIGUSR2. killing those.\n');
   workers();
-  cluster.disconnect(function() {
-    log('all killed\n');
-  });
+  //cluster.disconnect(function() {
+  //  log('all killed\n');
+  //});
+  for (var id in cluster.workers) {
+    var worker = cluster.workers[id];
+    worker.destroy();
+  }
   //spawn('node', ['muska.js'], { cwd: __dirname });
   //childProcess.execFile('node', ['muska.js'], { cwd: __dirname });
 
