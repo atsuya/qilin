@@ -8,6 +8,8 @@ Status](https://secure.travis-ci.org/atsuya/qilin.png)](http://travis-ci.org/ats
 
 Unicorn-like monitoring for node.js.
 
+![qilin](https://raw.github.com/atsuya/qilin/master/documents/qilin.jpg)
+
 
 What is it?
 ===========
