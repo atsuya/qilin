@@ -5,15 +5,13 @@ LEAKS = 'AggressiveTokenizer, tokenizer, RegexpTokenizer, WordTokenizer, WordPun
 all: test-all
 
 test-all:
-	@NODE_ENV=test QILIN_LOG_LEVEL=error ./node_modules/mocha/bin/mocha \
-		--reporter $(REPORTER) \
-		--globals $(LEAKS) \
+	@NODE_ENV=test QILIN_LOG_LEVEL=error ./node_modules/.bin/parallel-mocha \
+		-p 2 \
 		$(TESTS)
 
 one:
-	@NODE_ENV=test QILIN_LOG_LEVEL=error ./node_modules/mocha/bin/mocha \
-		--reporter $(REPORTER) \
-		--globals $(LEAKS) \
+	@NODE_ENV=test QILIN_LOG_LEVEL=error ./node_modules/.bin/parallel-mocha \
+		-p 2 \
 		${FILE}
 
 .PHONY: test-all one
