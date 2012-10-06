@@ -6,7 +6,8 @@
 var fs = require('fs')
   , os = require('os')
   , async = require('async')
-  , http = require('http');
+  , http = require('http')
+  , path = require('path');
 
 var helper = require('./support/helper')
   , Qilin = require(global.test.root + '/lib/qilin');
@@ -28,7 +29,7 @@ describe('Qilin', function() {
         , "});"
         , "httpServer.listen(3001, 'localhost');"
       ]
-    , filename = os.tmpDir() + 'qilin-reload.js'
+    , filename = os.tmpDir() + path.sep + 'qilin-reload.js'
     , options = {
           host: 'localhost'
         , port: 3001
