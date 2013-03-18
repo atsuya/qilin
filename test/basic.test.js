@@ -70,4 +70,43 @@ describe('Qilin', function() {
         }
     );
   });
+
+  it('has appropriate process titles', function(done) {
+    var workers = 3
+      , qilin = new Qilin(clusterArguments, { workers: workers })
+      , commandForMaster = 'ps axu | grep "(master)" | wc -l'
+      , commandForWorker = 'ps axu | grep "(worker)" | wc -l';
+
+    async.series([
+            function(callback) {
+              qilin.start(callback);
+            }
+          , function(callback) {
+              cp.exec(commandForMaster, function(error, stdout, stderr) {
+                var workers = parseInt(stdout.trim());
+                callback(error, workers);
+              });
+            }
+          , function(callback) {
+              cp.exec(commandForWorker, function(error, stdout, stderr) {
+                var workers = parseInt(stdout.trim());
+                callback(error, workers);
+              });
+            }
+          , function(callback) {
+              qilin.shutdown(true, callback);
+            }
+        ]
+      , function(error, results) {
+          if (error) {
+            throw error;
+          }
+
+          console.dir(results);
+          results[1].should.eql(1);
+          results[2].should.eql(workers);
+          done();
+        }
+    );
+  });
 });
